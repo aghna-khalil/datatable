@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product-table </title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css" />
+</head>
+<body>
+   <div class="wrapper">
+       <div class="table-container">
+        <table id="myTable">
+            <thead >
+                <tr>
+                    <th class="cell fixed first">Select option</th>
+                    <th>ID</th>
+                    <th>Product Name</th>
+                    <th>Product Title</th>
+                    <th>Product Description</th>
+                    <th>Product Vendor</th>
+                    <th>In Stock</th>
+                    <th>Buying Price</th>
+                    <th>Sale Price</th>
+                    <th>Purchase Quantity</th>
+                    <th>Product Type</th>
+                    <th>Shipping Rates</th>
+                    <th>Refill Limit</th>
+                    <th>Product Location Address</th>
+                    <th class="cell fixed last">Actions</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="cell fixed first"><input type="checkbox"></td>
+                    <td>1</td>
+                    <td>Product A</td>
+                    <td>Product A Title</td>
+                    <td>This is product A</td>
+                    <td>Vendor X</td>
+                    <td>Yes</td>
+                    <td>$10</td>
+                    <td>$20</td>
+                    <td>100</td>
+                    <td>Type 1</td>
+                    <td>$5</td>
+                    <td>500</td>
+                    <td>123 Street, City, Country</td>
+                    <td class="cell fixed last">
+                        <button>Add Vendor</button>
+                        <button>Add Product</button>
+                        <button>Edit Product</button>
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td class="cell fixed first"><input type="checkbox"></td>
+                    <td>2</td>
+                    <td>Product B</td>
+                    <td>Product B Title</td>
+                    <td>This is product B</td>
+                    <td>Vendor Y</td>
+                    <td>No</td>
+                    <td>$15</td>
+                    <td>$25</td>
+                    <td>50</td>
+                    <td>Type 2</td>
+                    <td>$7</td>
+                    <td>300</td>
+                    <td>456 Street, City, Country</td>
+                    <td class="cell fixed last">
+                        <button>Add Vendor</button>
+                        <button>Add Product</button>
+                        <button>Edit Product</button>
+                    </td>
+                </tr>
+              
+                <tr>
+                    <td class="cell fixed first"><input type="checkbox"></td>
+                    <td>3</td>
+                    <td>Product C</td>
+                    <td>Product C Title</td>
+                    <td>This is product C</td>
+                    <td>Vendor Z</td>
+                    <td>Yes</td>
+                    <td>$12</td>
+                    <td>$30</td>
+                    <td>80</td>
+                    <td>Type 1</td>
+                    <td>$6</td>
+                    <td>400</td>
+                    <td>789 Street, City, Country</td>
+                    <td class="cell fixed last">
+                        <button>Add Vendor</button>
+                        <button>Add Product</button>
+                        <button>Edit Product</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="cell fixed first"><input type="checkbox"></td>
+                    <td>3</td>
+                    <td>Product C</td>
+                    <td>Product C Title</td>
+                    <td>This is product C</td>
+                    <td>Vendor Z</td>
+                    <td>Yes</td>
+                    <td>$12</td>
+                    <td>$30</td>
+                    <td>80</td>
+                    <td>Type 1</td>
+                    <td>$6</td>
+                    <td>400</td>
+                    <td>789 Street, City, Country</td>
+                    <td class="cell fixed last">
+                        <button>Add Vendor</button>
+                        <button>Add Product</button>
+                        <button>Edit Product</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="cell fixed first"><input type="checkbox"></td>
+                    <td>3</td>
+                    <td>Product C</td>
+                    <td>Product C Title</td>
+                    <td>This is product C</td>
+                    <td>Vendor Z</td>
+                    <td>Yes</td>
+                    <td>$12</td>
+                    <td>$30</td>
+                    <td>80</td>
+                    <td>Type 1</td>
+                    <td>$6</td>
+                    <td>400</td>
+                    <td>789 Street, City, Country</td>
+                    <td class="cell fixed last">
+                        <button>Add Vendor</button>
+                        <button>Add Product</button>
+                        <button>Edit Product</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="cell fixed first"><input type="checkbox"></td>
+                    <td>3</td>
+                    <td>Product C</td>
+                    <td>Product C Title</td>
+                    <td>This is product C</td>
+                    <td>Vendor Z</td>
+                    <td>Yes</td>
+                    <td>$12</td>
+                    <td>$30</td>
+                    <td>80</td>
+                    <td>Type 1</td>
+                    <td>$6</td>
+                    <td>400</td>
+                    <td>789 Street, City, Country</td>
+                    <td class="cell fixed last">
+                        <button>Add Vendor</button>
+                        <button>Add Product</button>
+                        <button>Edit Product</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="cell fixed first"><input type="checkbox"></td>
+                    <td>3</td>
+                    <td>Product C</td>
+                    <td>Product C Title</td>
+                    <td>This is product C</td>
+                    <td>Vendor Z</td>
+                    <td>Yes</td>
+                    <td>$12</td>
+                    <td>$30</td>
+                    <td>80</td>
+                    <td>Type 1</td>
+                    <td>$6</td>
+                    <td>400</td>
+                    <td>789 Street, City, Country</td>
+                    <td class="cell fixed last">
+                        <button>Add Vendor</button>
+                        <button>Add Product</button>
+                        <button>Edit Product</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="cell fixed first"><input type="checkbox"></td>
+                    <td>3</td>
+                    <td>Product C</td>
+                    <td>Product C Title</td>
+                    <td>This is product C</td>
+                    <td>Vendor Z</td>
+                    <td>Yes</td>
+                    <td>$12</td>
+                    <td>$30</td>
+                    <td>80</td>
+                    <td>Type 1</td>
+                    <td>$6</td>
+                    <td>400</td>
+                    <td>789 Street, City, Country</td>
+                    <td class="cell fixed last">
+                        <button>Add Vendor</button>
+                        <button>Add Product</button>
+                        <button>Edit Product</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="cell fixed first"><input type="checkbox"></td>
+                    <td>3</td>
+                    <td>Product C</td>
+                    <td>Product C Title</td>
+                    <td>This is product C</td>
+                    <td>Vendor Z</td>
+                    <td>Yes</td>
+                    <td>$12</td>
+                    <td>$30</td>
+                    <td>80</td>
+                    <td>Type 1</td>
+                    <td>$6</td>
+                    <td>400</td>
+                    <td>789 Street, City, Country</td>
+                    <td class="cell fixed last">
+                        <button>Add Vendor</button>
+                        <button>Add Product</button>
+                        <button>Edit Product</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+       </div>
+    </section>
+</div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+<script src="/main.js"></script>
+</body>
+</html>
