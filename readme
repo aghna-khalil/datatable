@@ -1,0 +1,45 @@
+
+  // Initialize DataTable
+ $(document).ready(function () {
+   var table = $('#myTable').DataTable();
+
+
+    // Dropdown change event handler
+    $('#addColumnDropdown').on('change', function () {
+        var selectedColumn = $(this).val();
+        
+        if (selectedColumn !== 'none') {
+            // Add new column to the table
+            table.column(selectedColumn).visible(true);
+      
+        }
+    });
+
+//     // Open modal
+    $('#myTable tbody').on('click', 'button[data-target="editProductModal"]', function () {
+        var tr = $(this).closest('tr');
+        var data = table.row(tr).data();
+
+//         // Populate modal fields
+//         // Your existing code to populate modal fields
+
+        $('#editProductModal').css('display', 'block');
+    });
+
+//     // Save changes button click event handler
+    $('#saveChanges').on('click', function () {
+        alert('Save Changes clicked. Implement saving logic.');
+    });
+
+//     // Close modal button click event handler
+    $('.close').on('click', function () {
+        $('.modal').css('display', 'none');
+    });
+
+//     // Close modal when clicking outside of it
+    $(window).on('click', function (event) {
+        if ($(event.target).hasClass('modal')) {
+            $('.modal').css('display', 'none');
+        }
+    });
+});

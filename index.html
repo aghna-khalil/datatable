@@ -7,59 +7,192 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css" />
 </head>
 <style>
-    *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box
-}
-body {
-    font-family: Arial, sans-serif;
-    background-color: rgba(236, 236, 122, 0.863);
-}
-.table-container{
-    overflow-y: auto;
-    overflow-x: auto;
-    width: 80%;
-    height: 100vh;
-    margin: 0 auto;
-}
-table {
-    width: 800px;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
-th, td {
-    padding: 8px;
-    border-bottom: 1px solid #ddd;
-    text-align: left;
-}
-th {
-    background-color: #f2f2f2;
-}
-tr:hover {
-    background-color: #f5f5f5;
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f4f6;
+            padding: 10px;
+        }
+        .table-container {
+            width:95%;
+            margin: 0 auto;
+            overflow-x: auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            background-color: #fff;
+            padding:5px 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            font-size: 14px;
+        }
+        th {
+            background-color: #9288ec;
+            color: white;
+        }
+        tbody tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+        tbody tr:hover {
+            background-color: #9288ec;
+            cursor: pointer;
+        }
+        .fixed {
+            background-color: #f8f9fa;
+            color: #9288ec;
+        }
+        .cell.fixed.first,
+        .cell.fixed.last {
+            position: sticky;
+            z-index: 5;
+        }
+        .first {
+            left: 0;
+        }
+        .last {
+            right: 0;
+        }
+        button {
+            cursor: pointer;
+            padding: 8px 2px;
+            background-color: #9288ec;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-right: 5px;
+            transition: background-color 0.7s ease;
+        }
+        
+        button:hover {
+            background-color: white;
+            color: #9288ec;
+        }
+        .menu-container  {
+            position: relative; 
+            display: flex;
+            flex-direction: column;
+
+        }
+        .menu-container .action-buttons {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            right: 70px;
+            min-width: 100px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .menu-container .action-buttons button {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .menu-container:hover .action-buttons {
+            display: block;
+        }
+       div.dt-container div.dt-layout-row.dt-layout-table {
+         display: block;
+         overflow-y: auto;
+         overflow-x: auto;
+
+        }
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 99999999999999999; 
+            left: 0;
+            top: 0px;
+            width: 100%; 
 }
 
-.fixed {
-    
-    width: 100px; 
-    background-color: beige; 
-  }
-  .cell:not(.fixed) {
-    min-width: 120px; 
-  }
- .first{
-    position: sticky;
-    left: 0;
- }
- .last{
-    position: sticky;
-    right: 0;
- }
+
+.modal-content {
+  background-color: #fefefe;
+  padding:0px 20px;
+  border: 1px solid #888;
+  overflow: hidden;
+  width: 100%;
+  height: 100vh; 
+
+ 
+}
+
+
+.close {
+  background-color: #9288ec;
+  color: white;
+  float: right;
+  font-size: 40px;
+  font-weight: bold;
+  height: 60px;
+  width: 60px;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 10px;
+}
+
+
+.close:hover,
+.close:focus {
+  color: #9288ec;
+  background-color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+#savchanges{
+    background-color: #9288ec;
+  color: white;
+ font-size: 20px;
+}
+
+.btn {
+    cursor: pointer;
+    padding: 8px;
+    width: 60px;
+  /* height: 20px; */
+    background-color:#9288ec;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-right: 5px;
+    transition: background-color 0.7s ease;
+}
+
+.btn:hover {
+    background-color:whitesmoke;
+    color: #9288ec;
+}
 </style>
 <body>
    <div class="wrapper">
        <div class="table-container">
+
+        <label for="columnSelect">Select Columns:</label>
+
+        <select id="columnSelect">
+            <option>select column:</option>
+            <option value="product Review">Product Review</option>
+            <option value="product Rating">Product Rating</option>
+            <option value="product comments">Product comments</option>
+            <option value="product worth">Product worth</option>
+        </select>
+        <button onclick="addNewColumn()" class="btn">Add</button>
+        <button onclick="deleteColumn()" class="btn">delete</button>
+    
+      
+        <!-- ------------table------------ -->
         <table id="myTable">
             <thead >
                 <tr>
@@ -77,6 +210,8 @@ tr:hover {
                     <th>Shipping Rates</th>
                     <th>Refill Limit</th>
                     <th>Product Location Address</th>
+                    <!-- <th >Product Reviews</th>
+                    <th>Product Owner</th> -->
                     <th class="cell fixed last">Actions</th>
                     
                 </tr>
@@ -86,7 +221,7 @@ tr:hover {
                     <td class="cell fixed first"><input type="checkbox"></td>
                     <td>1</td>
                     <td>Product A</td>
-                    <td>Product A Title</td>
+                    <td>Juice</td>
                     <td>This is product A</td>
                     <td>Vendor X</td>
                     <td>Yes</td>
@@ -97,10 +232,17 @@ tr:hover {
                     <td>$5</td>
                     <td>500</td>
                     <td>123 Street, City, Country</td>
+                   
+                  
                     <td class="cell fixed last">
-                        <button>Add Vendor</button>
-                        <button>Add Product</button>
-                        <button>Edit Product</button>
+                        <div class="menu-container">
+                            <button>Menu</button>
+                            <div class="action-buttons">
+                                <button data-target="addVendorModal">Add Vendor</button>
+                                <button data-target="addProductModal">Add Product</button>
+                                <button data-target="editProductModal">Edit Product</button>
+                            </div>
+                        </div>
                     </td>
                     
                 </tr>
@@ -108,7 +250,7 @@ tr:hover {
                     <td class="cell fixed first"><input type="checkbox"></td>
                     <td>2</td>
                     <td>Product B</td>
-                    <td>Product B Title</td>
+                    <td>Beauty care</td>
                     <td>This is product B</td>
                     <td>Vendor Y</td>
                     <td>No</td>
@@ -119,18 +261,25 @@ tr:hover {
                     <td>$7</td>
                     <td>300</td>
                     <td>456 Street, City, Country</td>
+                    
                     <td class="cell fixed last">
-                        <button>Add Vendor</button>
-                        <button>Add Product</button>
-                        <button>Edit Product</button>
+                        <div class="menu-container">
+                            <button>Menu</button>
+                            <div class="action-buttons">
+                                <button data-target="addVendorModal">Add Vendor</button>
+                                <button data-target="addProductModal">Add Product</button>
+                                <button data-target="editProductModal">Edit Product</button>
+                            </div>
+                        </div>
                     </td>
+                
                 </tr>
               
                 <tr>
                     <td class="cell fixed first"><input type="checkbox"></td>
                     <td>3</td>
                     <td>Product C</td>
-                    <td>Product C Title</td>
+                    <td>Fruits</td>
                     <td>This is product C</td>
                     <td>Vendor Z</td>
                     <td>Yes</td>
@@ -141,18 +290,52 @@ tr:hover {
                     <td>$6</td>
                     <td>400</td>
                     <td>789 Street, City, Country</td>
+                    
                     <td class="cell fixed last">
-                        <button>Add Vendor</button>
-                        <button>Add Product</button>
-                        <button>Edit Product</button>
+                        <div class="menu-container">
+                            <button>Menu</button>
+                            <div class="action-buttons">
+                                <button data-target="addVendorModal">Add Vendor</button>
+                                <button data-target="addProductModal">Add Product</button>
+                                <button data-target="editProductModal">Edit Product</button>
+                            </div>
+                        </div>
+                    </td>
+                   
+                </tr>
+                <tr>
+                    <td class="cell fixed first"><input type="checkbox"></td>
+                    <td>4</td>
+                    <td>Product D</td>
+                    <td>Vegetables</td>
+                    <td>This is product D</td>
+                    <td>Vendor Z</td>
+                    <td>Yes</td>
+                    <td>$12</td>
+                    <td>$30</td>
+                    <td>80</td>
+                    <td>Type 1</td>
+                    <td>$6</td>
+                    <td>400</td>
+                    <td>789 Street, City, Country</td>
+                    
+                    <td class="cell fixed last">
+                        <div class="menu-container">
+                            <button>Menu</button>
+                            <div class="action-buttons">
+                                <button data-target="addVendorModal">Add Vendor</button>
+                                    <button data-target="addProductModal">Add Product</button>
+                                      <button data-target="editProductModal">Edit Product</button>
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
                     <td class="cell fixed first"><input type="checkbox"></td>
-                    <td>3</td>
-                    <td>Product C</td>
-                    <td>Product C Title</td>
-                    <td>This is product C</td>
+                    <td>5</td>
+                    <td>Product E</td>
+                    <td>Electronics</td>
+                    <td>This is product E</td>
                     <td>Vendor Z</td>
                     <td>Yes</td>
                     <td>$12</td>
@@ -162,18 +345,24 @@ tr:hover {
                     <td>$6</td>
                     <td>400</td>
                     <td>789 Street, City, Country</td>
+                    
                     <td class="cell fixed last">
-                        <button>Add Vendor</button>
-                        <button>Add Product</button>
-                        <button>Edit Product</button>
+                        <div class="menu-container">
+                            <button>Menu</button>
+                            <div class="action-buttons">
+                                <button data-target="addVendorModal">Add Vendor</button>
+                                <button data-target="addProductModal">Add Product</button>
+                                <button data-target="editProductModal">Edit Product</button>
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
                     <td class="cell fixed first"><input type="checkbox"></td>
-                    <td>3</td>
-                    <td>Product C</td>
-                    <td>Product C Title</td>
-                    <td>This is product C</td>
+                    <td>6</td>
+                    <td>Product F</td>
+                    <td>Clothes</td>
+                    <td>This is product F</td>
                     <td>Vendor Z</td>
                     <td>Yes</td>
                     <td>$12</td>
@@ -183,107 +372,199 @@ tr:hover {
                     <td>$6</td>
                     <td>400</td>
                     <td>789 Street, City, Country</td>
+                    
                     <td class="cell fixed last">
-                        <button>Add Vendor</button>
-                        <button>Add Product</button>
-                        <button>Edit Product</button>
+                        <div class="menu-container">
+                            <button>Menu</button>
+                            <div class="action-buttons">
+                                <button data-target="addVendorModal">Add Vendor</button>
+                                <button data-target="addProductModal">Add Product</button>
+                                <button data-target="editProductModal">Edit Product</button>
+                            </div>
+                        </div>
                     </td>
                 </tr>
-                <tr>
-                    <td class="cell fixed first"><input type="checkbox"></td>
-                    <td>3</td>
-                    <td>Product C</td>
-                    <td>Product C Title</td>
-                    <td>This is product C</td>
-                    <td>Vendor Z</td>
-                    <td>Yes</td>
-                    <td>$12</td>
-                    <td>$30</td>
-                    <td>80</td>
-                    <td>Type 1</td>
-                    <td>$6</td>
-                    <td>400</td>
-                    <td>789 Street, City, Country</td>
-                    <td class="cell fixed last">
-                        <button>Add Vendor</button>
-                        <button>Add Product</button>
-                        <button>Edit Product</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="cell fixed first"><input type="checkbox"></td>
-                    <td>3</td>
-                    <td>Product C</td>
-                    <td>Product C Title</td>
-                    <td>This is product C</td>
-                    <td>Vendor Z</td>
-                    <td>Yes</td>
-                    <td>$12</td>
-                    <td>$30</td>
-                    <td>80</td>
-                    <td>Type 1</td>
-                    <td>$6</td>
-                    <td>400</td>
-                    <td>789 Street, City, Country</td>
-                    <td class="cell fixed last">
-                        <button>Add Vendor</button>
-                        <button>Add Product</button>
-                        <button>Edit Product</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="cell fixed first"><input type="checkbox"></td>
-                    <td>3</td>
-                    <td>Product C</td>
-                    <td>Product C Title</td>
-                    <td>This is product C</td>
-                    <td>Vendor Z</td>
-                    <td>Yes</td>
-                    <td>$12</td>
-                    <td>$30</td>
-                    <td>80</td>
-                    <td>Type 1</td>
-                    <td>$6</td>
-                    <td>400</td>
-                    <td>789 Street, City, Country</td>
-                    <td class="cell fixed last">
-                        <button>Add Vendor</button>
-                        <button>Add Product</button>
-                        <button>Edit Product</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="cell fixed first"><input type="checkbox"></td>
-                    <td>3</td>
-                    <td>Product C</td>
-                    <td>Product C Title</td>
-                    <td>This is product C</td>
-                    <td>Vendor Z</td>
-                    <td>Yes</td>
-                    <td>$12</td>
-                    <td>$30</td>
-                    <td>80</td>
-                    <td>Type 1</td>
-                    <td>$6</td>
-                    <td>400</td>
-                    <td>789 Street, City, Country</td>
-                    <td class="cell fixed last">
-                        <button>Add Vendor</button>
-                        <button>Add Product</button>
-                        <button>Edit Product</button>
-                    </td>
-                </tr>
+                    
+                
             </tbody>
         </table>
-       </div>
-    </section>
+     <!-- ===================modal================== -->
+        <div id="editProductModal" class="modal">
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <h2 style="color: #9288ec;">Edit Product</h2>
+              <!-- modal data -->
+              <label for="ID">ID:</label>
+              <input type="text" id="modalID" name="ID"><br><br>
+              <label for="productName">Product Name:</label>
+              <input type="text" id="modalProductName" name="productName"><br><br>
+              <label for="productTitle">Product Title:</label>
+              <input type="text" id="modalProductTitle" name="productTitle"><br><br>
+              <label for="productDescription">Product Description:</label>
+              <input type="text" id="modalProductDescription" name="productDescription"><br><br>
+              <label for="productVendor">Product Vendor:</label>
+              <input type="text" id="modalProductVendor" name="productVendor"><br><br>
+              <label for="InStock">In Stock:</label>
+              <input type="text" id="modalInStock" name="inStock"><br><br>
+              <label for="BuyingPrice">Buying Price:</label>
+              <input type="text" id="modalBuyingPrice" name="BuyingPrice"><br><br>
+              <label for="Saleprice">Sale Price:</label>
+              <input type="text" id="modalSalePrice" name="salePrice"><br><br>
+              <label for="purchasequantity">Purchase Quantity:</label>
+              <input type="text" id="modalPurchaseQuantity" name="PurchaseQuantity"><br><br>
+              <label for="ProductType">Product Type:</label>
+              <input type="text" id="modalproductType" name="ProductType"><br><br>
+              <label for="shippingrates">Shipping Rates:</label>
+              <input type="text" id="modalShippingRates" name="ShippingRates"><br><br>
+              <label for="refilllimit">Refill Limit:</label>
+              <input type="text" id="modalRefillLimit" name="RefillLimit"><br><br>
+              <label for="addres">Product Location Address:</label>
+              <input type="text" id="modaladdress" name="address"><br><br>
+             
+              <button type="button" id="saveChanges">Save Changes</button>
+            </div>
+          </div>
+          
+    
 </div>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
 <script>
+    // sorting and filtering
     $(document).ready( function () {
     $('#myTable').DataTable();
 } );
+
+
+
+
 </script>
+<script>
+    // modal for edit product 
+$(document).ready(function () {
+    var table = $('#myTable').DataTable();
+
+    // Open modal
+    $('#myTable tbody').on('click', 'button[data-target="editProductModal"]', function () {
+        var tr = $(this).closest('tr');
+        var data = table.row(tr).data();
+
+        
+        $('#modalID').val(data[1]);
+        $('#modalProductName').val(data[2]); // Product Name
+        $('#modalProductTitle').val(data[3]);
+        $('#modalProductDescription').val(data[4]);
+        $('#modalProductVendor').val(data[5]); 
+        $('#modalInStock').val(data[6]);
+        $('#modalBuyingPrice').val(data[7]);
+        $('#modalSalePrice').val(data[8]);
+        $('#modalPurchaseQuantity').val(data[9]);
+        $('#modalproductType').val(data[10]);
+        $('#modalShippingRates').val(data[11]);
+        $('#modalRefillLimit').val(data[12]);
+        $('#modaladdress').val(data[13]);
+        
+        $('#editProductModal').css('display', 'block');
+    });
+
+    
+    $('#saveChanges').on('click', function() {
+        
+        alert('Save Changes clicked. Implement saving logic.');
+    });
+
+
+    $('.close').on('click', function() {
+        $('.modal').css('display', 'none');
+    });
+
+    $(window).on('click', function(event) {
+        if ($(event.target).hasClass('modal')) {
+            $('.modal').css('display', 'none');
+        }
+    });
+});
+
+
+
+</script>
+
+<script>
+function addNewColumn() {
+    let dropdown = document.getElementById("columnSelect");
+    let dropdownOptions = dropdown.options[dropdown.selectedIndex].value;
+    let table = document.getElementById("myTable");
+    let t_rows = table.querySelector("thead tr");
+
+    // Check if column already exists
+    if (!t_rows.querySelector(`th[data-name="${dropdownOptions}"]`)) {
+        const newColumn = document.createElement("th");
+        newColumn.textContent = dropdownOptions;
+        newColumn.setAttribute("data-name", dropdownOptions);
+        newColumn.classList.add("sortable");
+        
+        // Insert new column before the last action column
+        const lastActionColumn = t_rows.querySelector('.cell.fixed.last');
+        t_rows.insertBefore(newColumn, lastActionColumn);
+
+        // Add new data cells to each row
+        const body_rows = table.querySelectorAll("tbody tr");
+        body_rows.forEach(row => {
+            const cell = document.createElement("td");
+            cell.textContent = "******";
+            // Insert new data cell before the last action cell
+            const lastActionCell = row.querySelector('.cell.fixed.last');
+            row.insertBefore(cell, lastActionCell);
+        });
+    } else {
+        alert("Column already exists.");
+    }
+}</script>
+
+<script>
+
+    function deleteColumn(){
+
+const dropdown = document.getElementById("columnSelect");
+
+        const selectedOption = dropdown.options[dropdown.selectedIndex].value;
+
+
+
+        let table = document.getElementById("myTable");
+
+        let t_rows = table.querySelector("thead tr");
+
+
+
+        const columnIndex = Array.from(t_rows.children).findIndex(th => th.textContent === selectedOption);
+
+
+
+        if (columnIndex !== -1) {
+
+            t_rows.children[columnIndex].remove();
+
+            const bodyRows = table.querySelectorAll("tbody tr");
+
+            bodyRows.forEach(row => {
+
+                row.children[columnIndex].remove();
+
+            });
+
+        } else {
+
+            alert("Column does not exist!");
+
+        }
+
+}
+
+
+
+</script>
+
+
 </body>
 </html>
